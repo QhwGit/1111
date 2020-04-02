@@ -12,16 +12,16 @@ module.exports = {
     assetsPublicPath: '/wap',
     proxyTable: {
       '/api': {
-        target: '',       // 本地开发环境请求api（必填）
+        target: 'http://www.bsqdbj.com/wapapi/',       // 本地开发环境请求api（必填）
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
         }
       },
-      secure:false
-    }, 
+      secure: false
+    },
     // Various Dev Server settings
-    host: '', // 本地开发环境host（填写本地IP可手机访问）
+    host: '192.168.81.177', // 本地开发环境host（填写本地IP可手机访问）
     port: 8082, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
@@ -46,10 +46,10 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../../../wap/index.html'),
+    index: path.resolve(__dirname, '../wap/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../../../wap'),
+    assetsRoot: path.resolve(__dirname, '../wap'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/wap/',
 

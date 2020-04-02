@@ -1,39 +1,58 @@
 <template>
-  <Layout ref="load" class="account-info bg-f8">
+  <Layout ref="load"
+          class="account-info bg-f8">
     <Navbar :isMenu="false" />
     <van-cell-group>
-      <van-field
-        label="用户名"
-        :disabled="info.user_name?true:false"
-        placeholder="只能更改一次"
-        v-model="user_name"
-      />
-      <van-field label="昵称" placeholder="请输入昵称" v-model="info.nick_name" />
-      <van-field label="真实姓名" placeholder="请输入真实姓名" v-model="info.real_name" />
-      <FormGroup :items="formList" ref="FormGroup" v-if="isForm" />
+      <van-field label="用户名"
+                 :disabled="info.user_name?true:false"
+                 placeholder="只能更改一次"
+                 v-model="user_name" />
+      <van-field label="昵称"
+                 placeholder="请输入昵称"
+                 v-model="info.nick_name" />
+      <van-field label="真实姓名"
+                 placeholder="请输入真实姓名"
+                 v-model="info.real_name" />
+      <van-field label="身份证"
+                 placeholder="请输入真实身份证"
+                 v-model="info.id_card" />
+      <FormGroup :items="formList"
+                 ref="FormGroup"
+                 v-if="isForm" />
       <div v-else>
-        <CellDatePopup
-          label="生日"
-          placeholder="请选择生日"
-          :value="info.birthday"
-          :min-date="1"
-          :max-date="Math.round(new Date() / 1000)"
-          @confirm="onConfirmDate"
-        />
-        <van-cell title="性别" class="cell-panel">
-          <van-radio-group v-model="info.sex" class="cell-radio-group">
+        <CellDatePopup label="生日"
+                       placeholder="请选择生日"
+                       :value="info.birthday"
+                       :min-date="1"
+                       :max-date="Math.round(new Date() / 1000)"
+                       @confirm="onConfirmDate" />
+        <van-cell title="性别"
+                  class="cell-panel">
+          <van-radio-group v-model="info.sex"
+                           class="cell-radio-group">
             <van-radio :name="1">男</van-radio>
             <van-radio :name="2">女</van-radio>
             <van-radio :name="0">保密</van-radio>
           </van-radio-group>
         </van-cell>
-        <van-field label="QQ" type="number" placeholder="请输入QQ号码" v-model="info.qq" />
-        <CellAreaPopup label="所在地" placeholder="请选择地区" :info="areaInfo" @confirm="onAreaConfirm" />
+        <van-field label="QQ"
+                   type="number"
+                   placeholder="请输入QQ号码"
+                   v-model="info.qq" />
+        <CellAreaPopup label="所在地"
+                       placeholder="请选择地区"
+                       :info="areaInfo"
+                       @confirm="onAreaConfirm" />
       </div>
     </van-cell-group>
 
     <div class="foot-btn-group">
-      <van-button size="normal" type="danger" round block @click="onSave" :loading="isLoading">保存</van-button>
+      <van-button size="normal"
+                  type="danger"
+                  round
+                  block
+                  @click="onSave"
+                  :loading="isLoading">保存</van-button>
     </div>
   </Layout>
 </template>
@@ -154,8 +173,15 @@ export default sfc({
         }
         params.user_name = $this.user_name;
       }
+      let idcardReg = /^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/;
+
+      if (!idcardReg.test($this.info.id_card)) {
+        $this.$Toast("请输入合法身份证");
+        return false;
+      }
       params.nick_name = $this.info.nick_name;
       params.real_name = $this.info.real_name;
+      params.id_card = $this.info.id_card;
       if (!$this.isForm) {
         params.sex = $this.info.sex;
         params.birthday = $this.info.birthday;

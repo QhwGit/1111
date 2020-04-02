@@ -1,24 +1,21 @@
 <template>
   <div>
-    <van-field
-      :label="label"
-      readonly
-      :placeholder="placeholder"
-      :value="value | formatDate"
-      :class="required?'van-cell--required':''"
-      @click="isShow = true"
-    />
+    <van-field :label="label"
+               readonly
+               :placeholder="placeholder"
+               :value="value | date"
+               :class="required?'van-cell--required':''"
+               @click="isShow = true" />
     <div>
-      <van-popup v-model="isShow" position="bottom">
-        <van-datetime-picker
-          v-model="formatValue"
-          title="选择日期"
-          type="date"
-          :min-date="formatMinDate"
-          :max-date="formatMaxDate"
-          @confirm="onConfirmDate"
-          @cancel="isShow = false"
-        />
+      <van-popup v-model="isShow"
+                 position="bottom">
+        <van-datetime-picker v-model="formatValue"
+                             title="选择日期"
+                             type="date"
+                             :min-date="new Date(1900,0,1)"
+                             :max-date="formatMaxDate"
+                             @confirm="onConfirmDate"
+                             @cancel="isShow = false" />
       </van-popup>
     </div>
   </div>
@@ -51,6 +48,17 @@ export default {
     },
     maxDate: {
       type: [Number, String]
+    }
+  },
+  filters: {
+    date: function(time) {
+      console.log(time);
+      var d = new Date(time * 1000);
+      var year = d.getFullYear();
+      var month = d.getMonth() + 1;
+      var day = d.getDate() < 10 ? "0" + d.getDate() : "" + d.getDate();
+      console.log(year + "." + month + "." + day);
+      return year + "." + month + "." + day;
     }
   },
   computed: {

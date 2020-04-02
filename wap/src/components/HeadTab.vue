@@ -1,17 +1,26 @@
 <template>
-  <div class="head" :style="height">
+  <div class="head"
+       :style="height">
     <div class="box">
-      <van-search
-        v-if="showSearch"
-        :placeholder="searchPlaceholder"
-        v-model="text"
-        show-action
-        @blur="onBlur"
-      >
-        <div slot="action" @click="onSearch">搜索</div>
+      <van-search v-if="showSearch"
+                  :placeholder="searchPlaceholder"
+                  v-model="text"
+                  show-action
+                  @blur="onBlur">
+        <div slot="action"
+             @click="onSearch">搜索</div>
       </van-search>
-      <van-tabs v-model="active" @change="onTab">
-        <van-tab v-for="(item,index) in tabs" :key="index" :title="item.name" />
+      <van-tabs v-model="active"
+                :ellipsis='false'
+                @change="onTab">
+        <van-tab v-if="$route.path !=='/commission/team'"
+                 v-for="(item,index) in tabs"
+                 :key="index"
+                 :title="item.name" />
+        <van-tab v-if="$route.path ==='/commission/team'"
+                 v-for="(item,index) in tabs"
+                 :key="index"
+                 :title="item.level_name+'('+item.level_number+')'" />
       </van-tabs>
     </div>
   </div>
