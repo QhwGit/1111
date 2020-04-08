@@ -12,7 +12,8 @@ import '@/assets/styles/iconfont.css'
 import '@/assets/styles/app.css'
 import '@/assets/styles/vant-ui.css'
 
-import { Dialog, Lazyload, Icon, Cell, CellGroup, Button, Toast, Popup, Field, Notify, Tag, Tab, Tabs, RadioGroup, Radio, Row, Col, Checkbox, CheckboxGroup } from 'vant'
+import { Dialog, Lazyload, Icon, Cell, CellGroup, Button, Toast, Popup, Field, Notify, Tag, Tab, Tabs, RadioGroup, Radio, Row, Col, Checkbox, CheckboxGroup, Card } from 'vant'
+Vue.use(Card);
 Vue.use(Toast)
 Vue.use(Dialog)
 Vue.use(Icon)
@@ -66,7 +67,7 @@ Vue.use(Lazyload, {
   listenEvents: ['scroll'],
   lazyComponent: true,
   filter: {
-    progressive(listener, options) {
+    progressive (listener, options) {
       const type = listener.el.getAttribute('pic-type')
       if (type === 'goods') {
         listener.loading = baseImgPath + 'no-goods.png'
@@ -82,7 +83,7 @@ Vue.use(Lazyload, {
         listener.error = baseImgPath + 'no-rectangle.png'
       }
     },
-    webp(listener, options) {
+    webp (listener, options) {
       if (!options.supportWebp) return
       listener.src = BASESRC(listener.src)
     }
