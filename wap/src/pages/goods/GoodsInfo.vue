@@ -39,7 +39,8 @@
                   @click="button">发货</van-button>
 
     </div>
-    <div v-if="channel_data!==''">
+    <div v-if="channel_data!==''"
+         class="">
       <p class="info">收货信息</p>
       <van-card v-for="(item,index) in channel_data"
                 :key="index"
@@ -47,10 +48,11 @@
                 :desc="'收货电话：'+item.channel_phone"
                 :thumb="item.user_headimg.indexOf('http')!=-1?item.user_headimg:domain+item.user_headimg">
         <div slot="tags">
-          <p style="padding: 7px 0">扫码时间：{{item.create_time}}</p>
+          <p>发货人: {{item.hair_name}}</p>
+          <p style="padding: 7px 0">下单人: {{item.buy_name}}</p>
           <p>订单单号：{{item.order_no}}</p>
         </div>
-</template>
+      </van-card>
     </div>
   </div>
 </template>
@@ -130,6 +132,9 @@ export default {
 };
 </script>
 <style scoped>
+.van-card__thumb >>> {
+  width: 110px;
+}
 .wuLiu {
   margin-right: 20px;
 }
